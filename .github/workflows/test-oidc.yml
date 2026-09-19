@@ -1,0 +1,21 @@
+name: Test OIDC to Azure
+on: workflow_dispatch
+
+permissions:
+  id-token: write   # required for OIDC
+  contents: read
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    environment: production   # only if your federated credential subject uses environment:
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.CLIENT_ID }}
+          tenant-id: ${{ secrets.TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - run: az account list -o table

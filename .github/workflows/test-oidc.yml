@@ -7,7 +7,7 @@ permissions:
 
 jobs:
   terraform:
-    runs-on: bigrunner
+    runs-on: bigrunner2
     environment: production   # only if your federated credential subject uses environment:
     steps:
       - uses: actions/checkout@v4
